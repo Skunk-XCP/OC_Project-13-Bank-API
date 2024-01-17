@@ -169,7 +169,7 @@ paths:
             "200":
                description: User account retrieved successully
                schema:
-                  $ref: "#/definitions/ApiResponse"
+                  $ref: "#/definitions/Account"
             "400":
                description: Invalid Fields
             "500":
@@ -317,14 +317,14 @@ paths:
               description: Transaction details to be updated
               required: true
               schema:
-                 $ref: "#/definitions/Transaction"
+                 $ref: "#/definitions/TransactionUpdate"
          produces:
             - application/json
          responses:
             "200":
                description: Transaction updated successfully
                schema:
-                  $ref: "#/definitions/ApiResponse"
+                  $ref: "#/definitions/Transaction"
             "400":
                description: Invalid Fields
             "401":
@@ -356,13 +356,13 @@ definitions:
       properties:
          id:
             type: string
-            description: account id
+            description: Unique identifier for the account
          name:
             type: string
             description: account name
-         type:
+         accountTypeId:
             type: string
-            description: type of account
+            description: identifier of account type
          createdAt:
             type: string
             format: date
@@ -375,6 +375,25 @@ definitions:
             type: number
             format: float
             description: account balance
+         AccountType:
+            $ref: "#/definitions/AccountType"
+   AccountType:
+      type: object
+      properties:
+         id:
+            type: string
+            description: Unique identifier for the type of account
+         createdAt:
+            type: string
+            format: date
+            description: date of creation
+         updatedAt:
+            type: string
+            format: date
+            description: date of last update
+         label:
+            type: string
+            description: Label of type
    Transaction:
       type: object
       properties:
@@ -418,7 +437,7 @@ definitions:
       properties:
          id:
             type: string
-            description: Unique identifier for the transaction
+            description: Unique identifier for the type of transaction
          createdAt:
             type: string
             format: date
@@ -435,7 +454,7 @@ definitions:
       properties:
          id:
             type: string
-            description: Unique identifier for the Category
+            description: Unique identifier for the Category of transaction
          createdAt:
             type: string
             format: date
@@ -447,6 +466,21 @@ definitions:
          label:
             type: string
             description: Label of type
+   TransactionUpdate:
+      type: object
+      properties:
+         id:
+            type: string
+            description: Unique identifier for the transaction
+         transactionTypeId:
+            type: string
+            description: ID of TransactionType model
+         transactionCategoryId:
+            type: string
+            description: ID of TransactionCategory model
+         notes:
+            type: string
+            description: Notes of transaction
    Login:
       properties:
          email:
