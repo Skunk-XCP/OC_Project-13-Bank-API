@@ -138,7 +138,7 @@ paths:
                schema:
                   type: array
                   items:
-                     type: string
+                     type: object
                   example: ["account_id_1", "account_id_2", "account_id_3"]
             "400":
                description: Invalid Fields
@@ -207,43 +207,6 @@ paths:
                   type: array
                   items:
                      $ref: "#/definitions/Transaction"
-            "400":
-               description: Invalid Fields
-            "401":
-               description: Unauthorized access. Please log in
-            "500":
-               description: Internal Server Error
-      put:
-         security:
-            - Bearer: []
-         tags:
-            - User Account
-         summary: Update Transaction API
-         description: API for updating a specific transaction within an account
-         parameters:
-            - in: header
-              name: Authorization
-              description: Attach Bearer JWT token
-              required: true
-              type: string
-            - in: path
-              name: account_id
-              description: Account identifier
-              required: true
-              type: string
-            - in: body
-              name: body
-              description: Transaction details to be updated
-              required: true
-              schema:
-                 $ref: "#/definitions/Transaction"
-         produces:
-            - application/json
-         responses:
-            "200":
-               description: Transaction updated successfully
-               schema:
-                  $ref: "#/definitions/ApiResponse"
             "400":
                description: Invalid Fields
             "401":
@@ -435,9 +398,6 @@ definitions:
    TransactionType:
       type: object
       properties:
-         id:
-            type: string
-            description: Unique identifier for the type of transaction
          createdAt:
             type: string
             format: date
@@ -452,9 +412,6 @@ definitions:
    TransactionCategory:
       type: object
       properties:
-         id:
-            type: string
-            description: Unique identifier for the Category of transaction
          createdAt:
             type: string
             format: date
@@ -469,15 +426,9 @@ definitions:
    TransactionUpdate:
       type: object
       properties:
-         id:
-            type: string
-            description: Unique identifier for the transaction
          transactionTypeId:
             type: string
             description: ID of TransactionType model
-         transactionCategoryId:
-            type: string
-            description: ID of TransactionCategory model
          notes:
             type: string
             description: Notes of transaction
